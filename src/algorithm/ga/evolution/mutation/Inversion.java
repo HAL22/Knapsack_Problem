@@ -7,8 +7,8 @@ public class Inversion
 
     public static String doMutation(char[] charArray)
     {
-        int pivot1 = Configuration.instance.randomGenerator.nextInt(charArray.length);
-        int pivot2 = Configuration.instance.randomGenerator.nextInt(charArray.length-(pivot1+1)) + (pivot1+1);
+        int pivot1 = Configuration.instance.randomGenerator.nextInt(charArray.length-1);
+        int pivot2 = Configuration.instance.randomGenerator.nextInt(((charArray.length)-pivot1)-1) + (pivot1+1);
 
         for(int i=pivot1;i<pivot2+1;i++)
         {

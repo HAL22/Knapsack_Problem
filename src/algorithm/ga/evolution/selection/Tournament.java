@@ -3,31 +3,35 @@ package algorithm.ga.evolution.selection;
 import algorithm.ga.base.Chromosome;
 import main.Configuration;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Tournament
 {
-    public static Chromosome[] selectParent(Chromosome[] population)
+    public static Chromosome selectParent(Chromosome[] population)
     {
 
-        //Chromosome parent =
 
-        Chromosome[] parentArray = new Chromosome[2];
+        Chromosome bestChromosome=null;
 
-        for (int i = 0; i < 2; i++)
+        Chromosome[] K_Chromosomes =  new Chromosome[Configuration.instance.select_K_Chromosomes];
+
+        for(int i=0;i<Configuration.instance.select_K_Chromosomes;i++)
         {
-            parentArray[i] = population[Configuration.instance.randomGenerator.nextInt(population.length)];
-
-            for (int j = 0; j < 3; j++) {
-                int index = Configuration.instance.randomGenerator.nextInt(population.length);
-                if (population[index].compareTo(parentArray[i]) > 0)
-                    parentArray[i] = population[index];
-            }
-
+            int index = Configuration.instance.randomGenerator.nextInt(population.length);
+            K_Chromosomes[i] = population[index];
 
         }
 
+        Arrays.sort(K_Chromosomes, Collections.reverseOrder());
+
+        bestChromosome = K_Chromosomes[0];
 
 
-        return parentArray;
+
+
+
+        return bestChromosome;
 
 
     }

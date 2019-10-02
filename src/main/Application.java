@@ -8,6 +8,8 @@ import algorithm.ga.evolution.crossover.TwoPoint;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Application {
     // --- command line ---
@@ -43,11 +45,15 @@ public class Application {
         while ((i++ <= Configuration.instance.maximumNumberOfGenerations))
         {
             population.evolve();
-            bestChromosome = population.getPopulation()[0];
+
 
 
 
         }
+
+        Arrays.sort(population.getPopulation(), Collections.reverseOrder());
+
+        bestChromosome = population.getPopulation()[0];
 
         System.out.println(bestChromosome.getFitness());
 

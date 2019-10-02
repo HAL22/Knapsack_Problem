@@ -19,11 +19,15 @@ public enum Configuration
     public int bestKnownOptimum = 1013;
 
     int maximumNumberOfGenerations = 10000;
+    // Tournament selection
+
 
     //Genetic algorithm
     double crossoverRatio = 0.1;
     double elitismRatio = 0.1;
     double mutationRatio = .5555;
+    public int select_K_Chromosomes = 40;
+
 
 
 

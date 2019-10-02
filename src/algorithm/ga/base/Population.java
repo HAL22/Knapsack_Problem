@@ -1,8 +1,10 @@
 package algorithm.ga.base;
 
 import algorithm.ga.evolution.crossover.OnePoint;
+import algorithm.ga.evolution.crossover.TwoPoint;
 import algorithm.ga.evolution.mutation.BitFlip;
 import algorithm.ga.evolution.mutation.Inversion;
+import algorithm.ga.evolution.selection.RouletteWheel;
 import algorithm.ga.evolution.selection.Tournament;
 import main.Configuration;
 import main.KnapsackItem;
@@ -37,7 +39,7 @@ public class Population
             population[i].setFitness();
         }
 
-        Arrays.sort(population, Collections.reverseOrder());
+        //Arrays.sort(population, Collections.reverseOrder());
 
     }
 
@@ -67,16 +69,13 @@ public class Population
         {
             if (Configuration.instance.randomGenerator.nextFloat() <= crossoverRatio)
             {
-                Chromosome[] parents = Tournament.selectParent(population);
-                Chromosome parent2 = parents[1];
-                Chromosome parent1 = parents[0];
+                Chromosome parent1 = Tournament.selectParent(population);
+                Chromosome parent2 = Tournament.selectParent(population);
 
-                System.out.println(parent1.getGene());
-                System.out.println(parent2.getGene());
 
-                System.out.println();
 
-                Chromosome[] children = OnePoint.doCrossover(parent1,parent2);
+
+                Chromosome[] children = TwoPoint.doCrossover(parent1,parent2);
                 numberOfCrossoverOperations++;
 
                 if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
@@ -120,7 +119,7 @@ public class Population
         }
 
 
-        Arrays.sort(chromosomeArray,Collections.reverseOrder());
+      //  Arrays.sort(chromosomeArray,Collections.reverseOrder());
         population = chromosomeArray;
 
 

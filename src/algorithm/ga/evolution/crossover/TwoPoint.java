@@ -11,8 +11,8 @@ public class TwoPoint
         char[] charArray01 = c1.getGene().toCharArray();
         char[] charArray02 = c2.getGene().toCharArray();
 
-        int pivot1 = Configuration.instance.randomGenerator.nextInt(charArray01.length);
-        int pivot2 = Configuration.instance.randomGenerator.nextInt(charArray01.length-(pivot1+1)) + (pivot1+1);
+        int pivot1 = Configuration.instance.randomGenerator.nextInt(charArray01.length-1);
+        int pivot2 = Configuration.instance.randomGenerator.nextInt(((charArray01.length)-pivot1)-1) + (pivot1+1);
 
         char[] child01 = new char[c1.getGene().length()];
         char[] child02 = new char[c1.getGene().length()];

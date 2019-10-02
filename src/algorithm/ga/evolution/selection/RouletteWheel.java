@@ -5,69 +5,66 @@ import main.Configuration;
 
 public class RouletteWheel
 {
-    public static Chromosome[] selectParent(Chromosome[] population)
+    public static Chromosome selectParent(Chromosome[] population)
     {
-        Chromosome[] parentArray = new Chromosome[2];
+        Chromosome parentArray =null;
 
-        for(int j=0;j<2;j++)
-        {
+
             int sum_of_fitness=0;
 
             double sum_of_probability =0;
+
+            double probability = 0;
+
+            float number=0f;
 
             for(int i=0;i<population.length;i++)
             {
                 sum_of_fitness=sum_of_fitness+population[i].getFitness();
             }
 
-            for(int i=0;i<population.length;i++)
-            {
-                double probability = sum_of_probability + (population[i].getFitness()/sum_of_fitness);
-                sum_of_probability = sum_of_probability + probability;
-                population[i].setProbability(probability);
-            }
+            double[] roullette = createRoulette(sum_of_fitness,population.length,population);
 
-            float number = Configuration.instance.randomGenerator.nextFloat(false,false);
+            number = Configuration.instance.randomGenerator.nextFloat();
+            System.out.println(number);
 
             for(int i=0;i<population.length;i++)
             {
-                if(i==population.length-1)
-                {
-                    int next_index = 0;
-
-                    if(number > population[i].getProbability() && number < population[next_index].getProbability()){   parentArray[j]= population[i];
-                        break;}
 
 
+                    if(number < roullette[i])
+                    {
+                        parentArray= population[i];
+                        return parentArray;
+                    }
 
-
-                }
-
-                else
-                {
-                    int next_index = i+1;
-
-                    if(number > population[i].getProbability() && number < population[next_index].getProbability()){ parentArray[j]= population[i];
-                        break;}
-
-
-
-
-                }
 
 
             }
 
+
+
+        return null;
+
+    }
+
+    public static double[] createRoulette(int sum_of_fitness,int size,Chromosome[] population)
+    {
+        double[] roulette = new double[size];
+
+        double sum_prob = 0;
+
+        for(int i=0;i<size;i++)
+        {
+            double prob = sum_prob + (((double)population[i].getFitness())/sum_of_fitness);
+            sum_prob = sum_prob + prob;
+            roulette[0]= prob;
 
         }
 
 
+        return  roulette;
 
-
-
-
-
-        return parentArray;
 
     }
 
