@@ -28,6 +28,13 @@ public enum Configuration
     double mutationRatio = .5555;
     public int select_K_Chromosomes = 40;
 
+    //Simulated Annealing
+    public double initialTemperature = 10000;
+    public double alpha = 0.003; // cooling rate
+    public double finishTemperature = 1;
+
+
+
 
 
 

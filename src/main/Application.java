@@ -36,7 +36,6 @@ public class Application {
         }
 
 
-
         Population population = new Population(Knapsack.size(),Configuration.instance.crossoverRatio,Configuration.instance.elitismRatio,Configuration.instance.mutationRatio,Knapsack);
 
         int i = 0;
