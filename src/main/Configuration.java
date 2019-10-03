@@ -2,6 +2,8 @@ package main;
 
 import random.MersenneTwisterFast;
 
+import java.text.DecimalFormat;
+
 public enum Configuration
 {
     instance;
@@ -32,6 +34,7 @@ public enum Configuration
     public double initialTemperature = 10000;
     public double alpha = 0.003; // cooling rate
     public double finishTemperature = 1;
+
 
 
 

@@ -4,6 +4,8 @@ import algorithm.ga.base.Chromosome;
 import algorithm.ga.base.Population;
 import algorithm.ga.evolution.crossover.OnePoint;
 import algorithm.ga.evolution.crossover.TwoPoint;
+import algorithm.sa.main.Sack;
+import algorithm.sa.main.SimulatedAnnealing;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -54,7 +56,13 @@ public class Application {
 
         bestChromosome = population.getPopulation()[0];
 
-        System.out.println(bestChromosome.getFitness());
+        System.out.println("Genetic algo"+" "+bestChromosome.getFitness());
+
+        SimulatedAnnealing sa = new SimulatedAnnealing(Knapsack,Configuration.instance.maximumCapacity);
+
+        Sack bestSoultion = sa.execute();
+
+        System.out.println(" Simulated Annealing "+" "+bestSoultion.getFitness());
 
 
 
