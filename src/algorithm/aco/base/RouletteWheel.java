@@ -14,12 +14,12 @@ public class RouletteWheel
 
         for(KnapsackItem k:NotYetVisited)
         {
-            sum =sum + (Math.pow(((double)k.getValue()/k.getWeight()),(Configuration.instance.beta)))*(Math.pow((pheromoneVector[k.getIndex()-1]),(Configuration.instance.theta)));
+            sum =sum + (Math.pow(((double)k.getValue()/(k.getWeight()*k.getWeight())),(Configuration.instance.beta)))*(Math.pow((pheromoneVector[k.getIndex()-1]),(Configuration.instance.theta)));
         }
 
         double[] roulette = createRoulette(sum,pheromoneVector,NotYetVisited);
 
-        float number = Configuration.instance.randomGenerator.nextFloat();
+        double number = Configuration.instance.randomGenerator.nextDouble()/100;
 
         for(int i=0;i<roulette.length;i++)
         {
@@ -30,7 +30,7 @@ public class RouletteWheel
         }
 
 
-        return null;
+        return NotYetVisited.get(0);
 
 
 
@@ -46,7 +46,7 @@ public class RouletteWheel
         for(int i=0;i<NotYetVisited.size();i++)
         {
             KnapsackItem k = NotYetVisited.get(i);
-            double kValue = (Math.pow(((double)k.getValue()/k.getWeight()),(Configuration.instance.beta)))*(Math.pow((pheromoneVector[k.getIndex()-1]),(Configuration.instance.theta)));
+            double kValue = (Math.pow(((double)k.getValue()/(k.getWeight()*k.getWeight())),(Configuration.instance.beta)))*(Math.pow((pheromoneVector[k.getIndex()-1]),(Configuration.instance.theta)));
             roulette[i] = kValue/sum;
         }
 

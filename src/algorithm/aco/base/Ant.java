@@ -1,10 +1,12 @@
 package algorithm.aco.base;
 
+import algorithm.ga.base.Chromosome;
+import main.Configuration;
 import main.KnapsackItem;
 
 import java.util.ArrayList;
 
-public class Ant
+public class Ant implements Comparable<Ant>
 {
     private AntColony antColony;
     private int size;
@@ -33,6 +35,8 @@ public class Ant
 
         this.Sack = new ArrayList<>();
 
+        this.NotYetVisited = new ArrayList<>();
+
         for(KnapsackItem k:Knapsack)
         {
             this.NotYetVisited.add(new KnapsackItem(k.getIndex(),k.getWeight(),k.getValue()));
@@ -40,11 +44,127 @@ public class Ant
 
     }
 
+    public void addtoSack(KnapsackItem k)
+    {
+        this.Sack.add(k);
+
+        this.valueOfsack = this.valueOfsack+k.getValue();
+        this.weightOfsack = this.weightOfsack+ k.getWeight();
+    }
+
+    public void layPheromone(int bestAnt)
+    {
+        for(KnapsackItem k:Sack)
+        {
+            antColony.getPheromoneVector()[k.getIndex()-1] = antColony.getPheromoneVector()[k.getIndex()-1] + (double) 1/1+(bestAnt-((double)getValueOfsack()/bestAnt));
+            //antColony.getPheromoneVector()[k.getIndex()-1] = antColony.getPheromoneVector()[k.getIndex()-1] + 1;
+        }
+
+    }
+
+
+    public void lookForWay()
+    {
+        KnapsackItem randomItem = NotYetVisited.get(Configuration.instance.randomGenerator.nextInt(size));
+
+       addtoSack(randomItem);
+
+        for(int i=0;i<NotYetVisited.size();i++)
+        {
+            if(randomItem.getIndex()==NotYetVisited.get(i).getIndex())
+            {
+                NotYetVisited.remove(NotYetVisited.get(i));
+                break;
+
+            }
+        }
+
+        while(  weightOfsack<Configuration.instance.maximumCapacity)
+        {
+
+
+
+
+            if(NotYetVisited.size()>0)
+            {
+
+                KnapsackItem item = RouletteWheel.selectKnapsackItem(antColony.getPheromoneVector(),NotYetVisited);
+
+
+
+                if(item.getWeight()+weightOfsack<Configuration.instance.maximumCapacity)
+                {
+                    addtoSack(item);
+
+                    for(int i=0;i<NotYetVisited.size();i++)
+                    {
+                        if(item.getIndex()==NotYetVisited.get(i).getIndex())
+                        {
+                            NotYetVisited.remove(NotYetVisited.get(i));
+                            break;
+
+                        }
+                    }
+
+
+                }
+                else
+                {
+                    for(int i=0;i<NotYetVisited.size();i++)
+                    {
+                        if(item.getIndex()==NotYetVisited.get(i).getIndex())
+                        {
+                            NotYetVisited.remove(NotYetVisited.get(i));
+                            break;
+
+                        }
+                    }
+
+
+                }
+
+
+            }
+            else
+                {
+
+                    break;
+                }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+    }
 
 
 
@@ -104,5 +224,15 @@ public class Ant
 
     public void setNotYetVisited(ArrayList<KnapsackItem> notYetVisited) {
         NotYetVisited = notYetVisited;
+    }
+
+    public int compareTo(Ant ant) {
+        if (valueOfsack < ant.getValueOfsack())
+            return -1;
+
+        if (valueOfsack > ant.getValueOfsack())
+            return 1;
+
+        return 0;
     }
 }
