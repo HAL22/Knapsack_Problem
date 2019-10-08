@@ -26,7 +26,7 @@ public class RouletteWheel
             double[] roullette = createRoulette(sum_of_fitness,population.length,population);
 
             number = Configuration.instance.randomGenerator.nextFloat();
-            System.out.println(number);
+
 
             for(int i=0;i<population.length;i++)
             {

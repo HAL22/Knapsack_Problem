@@ -32,8 +32,17 @@ public enum Configuration
 
     //Simulated Annealing
     public double initialTemperature = 10000;
-    public double alpha = 0.003; // cooling rate
+    public double alpha = 0.0003; // cooling rate
     public double finishTemperature = 1;
+
+    //ACO
+    public  double decayFactor = 0.3;
+    public  double startPheromoneValue = 0.00005;
+    public  int numberOfAnts = 10;
+    public double theta=0.03;
+    public double beta = 0.03;
+
+
 
 
 

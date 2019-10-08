@@ -97,22 +97,6 @@ public class SimulatedAnnealing
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public double acceptanceProbability(int currentEnergy, int neighbourEnergy, double temperature)
     {
         double value;
