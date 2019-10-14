@@ -28,6 +28,32 @@ public class Ant implements Comparable<Ant>
         this.NotYetVisited = null;
     }
 
+    public Ant(Ant ant)
+    {
+        this.Knapsack = ant.getKnapsack();
+        this.size = ant.getSize();
+        this.antColony = ant.antColony;
+
+        this.valueOfsack = ant.getValueOfsack();
+        this.weightOfsack = ant.getWeightOfsack();
+
+
+
+
+
+        this.Sack = new ArrayList<>();
+
+
+        for(KnapsackItem k:ant.getSack())
+        {
+            this.Sack.add(new KnapsackItem(k.getIndex(),k.getWeight(),k.getValue()));
+        }
+
+        this.NotYetVisited = ant.getNotYetVisited();
+
+
+    }
+
     public void newRound()
     {
         this.weightOfsack =0;
@@ -56,8 +82,8 @@ public class Ant implements Comparable<Ant>
     {
         for(KnapsackItem k:Sack)
         {
-            antColony.getPheromoneVector()[k.getIndex()-1] = antColony.getPheromoneVector()[k.getIndex()-1] + (double) 1/1+(bestAnt-((double)getValueOfsack()/bestAnt));
-            //antColony.getPheromoneVector()[k.getIndex()-1] = antColony.getPheromoneVector()[k.getIndex()-1] + 1;
+            //antColony.getPheromoneVector()[k.getIndex()-1] = antColony.getPheromoneVector()[k.getIndex()-1] + (double) 1/1+(bestAnt-((double)getValueOfsack()/bestAnt));
+            antColony.getPheromoneVector()[k.getIndex()-1] = antColony.getPheromoneVector()[k.getIndex()-1] + valueOfsack;
         }
 
     }
@@ -83,8 +109,6 @@ public class Ant implements Comparable<Ant>
         {
 
 
-
-
             if(NotYetVisited.size()>0)
             {
 
@@ -108,6 +132,7 @@ public class Ant implements Comparable<Ant>
 
 
                 }
+
                 else
                 {
                     for(int i=0;i<NotYetVisited.size();i++)

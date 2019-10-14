@@ -36,11 +36,21 @@ public enum Configuration
     public double finishTemperature = 1;
 
     //ACO
-    public  double decayFactor = 0.005;
-    public  double startPheromoneValue = 0.45;
-    public  int numberOfAnts = 8;
+    public  double decayFactor = 0.0005;
+    public  double startPheromoneValue = 0.0005;
+    public  int numberOfAnts = 10;
     public double theta=1;
     public double beta = 1;
+
+    //PSO
+    public double VMAX = 4;
+    public double VMIN = -4;
+    public int numberOfParticles = 20;
+    public double cognitiveFactor = 1.42694;
+    public double socialFactor = 1.42694;
+    public double w = 1;
+
+
 
 
 

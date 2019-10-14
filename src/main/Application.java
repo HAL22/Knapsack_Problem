@@ -6,6 +6,7 @@ import algorithm.ga.base.Chromosome;
 import algorithm.ga.base.Population;
 import algorithm.ga.evolution.crossover.OnePoint;
 import algorithm.ga.evolution.crossover.TwoPoint;
+import algorithm.pso.base.Swarm;
 import algorithm.sa.main.Sack;
 import algorithm.sa.main.SimulatedAnnealing;
 
@@ -44,6 +45,8 @@ public class Application {
 
         AntColony antColony =  new AntColony(Knapsack);
 
+        Swarm swarm = new Swarm(Knapsack);
+
         int i = 0;
         Chromosome bestChromosome = population.getPopulation()[0];
 
@@ -51,7 +54,9 @@ public class Application {
 
         while ((i++ <= Configuration.instance.maximumNumberOfGenerations))
         {
-            //population.evolve();
+          //  population.evolve();
+
+            /*
 
             antColony.solve();
 
@@ -60,7 +65,9 @@ public class Application {
            int fitness =  antColony.getAnts()[0].getValueOfsack();
 
            if(fitness>bestfitness)
-               bestfitness=fitness;
+               bestfitness=fitness;*/
+
+            swarm.execute();
 
 
 
@@ -68,8 +75,9 @@ public class Application {
 
 
         }
+        /*
 
-        /**Arrays.sort(population.getPopulation(), Collections.reverseOrder());
+        Arrays.sort(population.getPopulation(), Collections.reverseOrder());
 
         bestChromosome = population.getPopulation()[0];
 
@@ -79,13 +87,15 @@ public class Application {
 
         Sack bestSoultion = sa.execute();
 
-        System.out.println(" Simulated Annealing "+" "+bestSoultion.getFitness());*/
+        System.out.println(" Simulated Annealing "+" "+bestSoultion.getFitness());
 
         Arrays.sort(antColony.getAnts(),Collections.reverseOrder());
 
         Ant bestAnt = antColony.getAnts()[0];
 
-        System.out.println(bestfitness);
+        System.out.println(bestfitness);*/
+
+        System.out.println(swarm.getOptimalValue());
 
 
 

@@ -17,6 +17,8 @@ public class RouletteWheel
             sum =sum + (Math.pow(((double)k.getValue()/(k.getWeight()*k.getWeight())),(Configuration.instance.beta)))*(Math.pow((pheromoneVector[k.getIndex()-1]),(Configuration.instance.theta)));
         }
 
+        //
+
         double[] roulette = createRoulette(sum,pheromoneVector,NotYetVisited);
 
         double number = Configuration.instance.randomGenerator.nextDouble()/100;

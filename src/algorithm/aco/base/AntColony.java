@@ -59,8 +59,6 @@ public class AntColony
 
         decayPheromone();
 
-
-
         Arrays.sort(ants,Collections.reverseOrder());
 
         int currentbest = ants[0].getValueOfsack();
@@ -68,20 +66,18 @@ public class AntColony
         if(currentbest>bestfitness)
         {
             bestfitness=currentbest;
+            bestAnt = new Ant(ants[0]);
             System.out.println(bestfitness);
         }
 
+        bestAnt.layPheromone(1);
 
 
 
 
 
 
-       for(int i=0;i<ants.length;i++)
-       {
 
-           ants[i].layPheromone(bestfitness);
-       }
     }
 
 
