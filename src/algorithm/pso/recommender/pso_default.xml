@@ -1,0 +1,56 @@
+<PSO_Default_Config>
+
+    <parameter>
+        <name>Velocity Max</name>
+        <value>
+            4
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name>Velocity Min</name>
+        <value>
+            -4
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name> Number of particles</name>
+        <value>
+
+            20
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name> Cognitive Factor </name>
+        <value>
+
+            1.42694
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name> Social Factor </name>
+        <value>
+
+            1.42694
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name> Inertia(w)</name>
+        <value>
+
+            1
+
+        </value>
+    </parameter>
+
+
+</PSO_Default_Config>

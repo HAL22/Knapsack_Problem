@@ -1,0 +1,30 @@
+
+<SA_Default_Config>
+
+    <parameter>
+        <name>Alpha/Cooling_rate</name>
+        <value>
+            0.0003
+        </value>
+
+    </parameter>
+
+    <parameter>
+        <name>Initial Temperature</name>
+        <value>
+            10000
+        </value>
+
+    </parameter>
+
+    <parameter>
+        <name>Finish Temperature</name>
+        <value>
+            1
+        </value>
+
+    </parameter>
+
+
+
+</SA_Default_Config>
