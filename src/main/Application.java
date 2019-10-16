@@ -134,7 +134,10 @@ public class Application {
             case "-best-algorithm":
 
                 BestAlgo(population,sa,antColony,swarm);
+                 break;
 
+            default:
+                System.out.println("ERROR");
 
 
         }

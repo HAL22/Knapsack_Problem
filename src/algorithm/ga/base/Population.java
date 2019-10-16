@@ -3,6 +3,7 @@ package algorithm.ga.base;
 import algorithm.ga.evolution.crossover.OnePoint;
 import algorithm.ga.evolution.crossover.TwoPoint;
 import algorithm.ga.evolution.mutation.BitFlip;
+import algorithm.ga.evolution.mutation.Displacement;
 import algorithm.ga.evolution.mutation.Inversion;
 import algorithm.ga.evolution.selection.RouletteWheel;
 import algorithm.ga.evolution.selection.Tournament;
@@ -84,7 +85,7 @@ public class Population
 
                 if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
                 {
-                    Chromosome c =  new Chromosome(BitFlip.doMutation(children[0].getGene().toCharArray()));
+                    Chromosome c =  new Chromosome(Displacement.doMutation(children[0].getGene().toCharArray()));
                     c.setKnapsack(this.Knapsack);
                     c.setFitness();
                     chromosomeArray[(index++)] = c;
@@ -98,7 +99,7 @@ public class Population
 
                     if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
                     {
-                        Chromosome c =  new Chromosome(BitFlip.doMutation(children[1].getGene().toCharArray()));
+                        Chromosome c =  new Chromosome(Displacement.doMutation(children[1].getGene().toCharArray()));
                         c.setKnapsack(this.Knapsack);
                         c.setFitness();
                         chromosomeArray[index] = c;
@@ -111,7 +112,7 @@ public class Population
 
             else if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
             {
-                Chromosome c= new Chromosome(BitFlip.doMutation(population[index].getGene().toCharArray()));
+                Chromosome c= new Chromosome(Displacement.doMutation(population[index].getGene().toCharArray()));
                 c.setKnapsack(Knapsack);
                 c.setFitness();
                 chromosomeArray[index] = c;
