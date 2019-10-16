@@ -83,7 +83,7 @@ public class Swarm
                 if(Particle.ObjectiveValue(position,this.Knapsack)>Particle.ObjectiveValue(this.best_global_Position,this.Knapsack))
                 {
                     this.best_global_Position = position;
-                    System.out.println(Particle.ObjectiveValue(position,this.Knapsack));
+
                 }
             }
 

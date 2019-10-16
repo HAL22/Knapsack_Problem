@@ -35,9 +35,17 @@ public enum Configuration
     public double alpha = 0.0003; // cooling rate
     public double finishTemperature = 1;
 
+        // SA search for best parameters
+        public double SA_startAlpha = 0.0001;
+        public double SA_alphaInc = 0.0001;
+
+
+
+
+
     //ACO
-    public  double decayFactor = 0.0005;
-    public  double startPheromoneValue = 0.0005;
+    public  double decayFactor = 0.1;
+    public  double startPheromoneValue = 50;
     public  int numberOfAnts = 10;
     public double theta=1;
     public double beta = 1;
@@ -49,6 +57,8 @@ public enum Configuration
     public double cognitiveFactor = 1.42694;
     public double socialFactor = 1.42694;
     public double w = 1;
+
+
 
 
 

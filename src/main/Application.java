@@ -9,6 +9,7 @@ import algorithm.ga.evolution.crossover.TwoPoint;
 import algorithm.pso.base.Swarm;
 import algorithm.sa.main.Sack;
 import algorithm.sa.main.SimulatedAnnealing;
+import algorithm.sa.recommender.SimulatedAnnealingRecommender;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,6 +26,7 @@ public class Application {
         double currentBestFitness =0;
 
 
+        // Reading in the data from the Knapsack csv file
         BufferedReader csvReader = new BufferedReader(new FileReader(Configuration.instance.dataFilePath));
 
         String row="";
@@ -42,60 +44,112 @@ public class Application {
 
 
         Population population = new Population(Knapsack.size(),Configuration.instance.crossoverRatio,Configuration.instance.elitismRatio,Configuration.instance.mutationRatio,Knapsack);
-
         AntColony antColony =  new AntColony(Knapsack);
-
         Swarm swarm = new Swarm(Knapsack);
+        SimulatedAnnealing sa = new SimulatedAnnealing(Knapsack,Configuration.instance.maximumCapacity,Configuration.instance.alpha);
 
-        int i = 0;
-        Chromosome bestChromosome = population.getPopulation()[0];
 
-        int bestfitness=0;
-
-        while ((i++ <= Configuration.instance.maximumNumberOfGenerations))
+        switch(args[0])
         {
-          //  population.evolve();
+            case "-ga":
+                if(args[1].equals("-best"))
+                {
+                    GA(population,"best");
 
-            /*
+                }
+                else if(args[1].equals("-default"))
+                {
+                    GA(population,"default");
 
-            antColony.solve();
+                }
+                else if(args[1].equals("-search_best_configuration"))
+                    {
 
-            Arrays.sort(antColony.getAnts(),Collections.reverseOrder());
+                    }
 
-           int fitness =  antColony.getAnts()[0].getValueOfsack();
+                break;
 
-           if(fitness>bestfitness)
-               bestfitness=fitness;*/
-
-            swarm.execute();
-
+            case "-sa":
 
 
+                if(args[1].equals("-best"))
+                {
+                    SA(sa,"best");
+
+                }
+                else if(args[1].equals("-default"))
+                {
+                    SA(sa,"default");
+
+                }
+                else if(args[1].equals("-search_best_configuration"))
+                {
+
+                }
+
+                break;
+
+
+            case "-aco":
+
+
+                if(args[1].equals("-best"))
+                {
+                    ACO(antColony,"best");
+
+                }
+                else if(args[1].equals("-default"))
+                {
+                    ACO(antColony,"default");
+
+                }
+                else if(args[1].equals("-search_best_configuration"))
+                {
+
+                }
+
+                break;
+
+
+            case "-pso":
+
+
+                if(args[1].equals("-best"))
+                {
+                    PSO(swarm,"best");
+
+                }
+                else if(args[1].equals("-default"))
+                {
+                    PSO(swarm,"default");
+
+                }
+                else if(args[1].equals("-search_best_configuration"))
+                {
+
+                }
+
+                break;
+
+            case "-best-algorithm":
+
+                BestAlgo(population,sa,antColony,swarm);
 
 
 
         }
-        /*
 
-        Arrays.sort(population.getPopulation(), Collections.reverseOrder());
 
-        bestChromosome = population.getPopulation()[0];
 
-        System.out.println("Genetic algo"+" "+bestChromosome.getFitness());
 
-        SimulatedAnnealing sa = new SimulatedAnnealing(Knapsack,Configuration.instance.maximumCapacity);
 
-        Sack bestSoultion = sa.execute();
 
-        System.out.println(" Simulated Annealing "+" "+bestSoultion.getFitness());
 
-        Arrays.sort(antColony.getAnts(),Collections.reverseOrder());
 
-        Ant bestAnt = antColony.getAnts()[0];
 
-        System.out.println(bestfitness);*/
 
-        System.out.println(swarm.getOptimalValue());
+
+
 
 
 
@@ -108,4 +162,161 @@ public class Application {
 
 
     }
+
+    public static void GA(Population population,String config)
+    {
+        int i=0;
+
+        while ((i++ <= Configuration.instance.maximumNumberOfGenerations))
+        {
+            population.evolve();
+        }
+
+        Arrays.sort(population.getPopulation(), Collections.reverseOrder());
+
+        Chromosome bestChromosome = population.getPopulation()[0];
+
+        System.out.println("Genetic algorithm running with "+config+" configuration:");
+
+        System.out.println("The fitness: "+bestChromosome.getFitness());
+
+        System.out.println("The gene: "+bestChromosome.getGene());
+
+
+
+    }
+
+    public  static void SA(SimulatedAnnealing sa,String config)
+    {
+        Sack bestSack = sa.execute();
+
+        System.out.println(" Simulated Annealing algorithm running with "+config+" configuration");
+        System.out.println("The value: "+bestSack.getFitness());
+
+
+
+    }
+
+    public static void ACO(AntColony antColony, String config)
+    {
+        int i=0;
+        int bestfitness=0;
+
+        while ((i++ <= Configuration.instance.maximumNumberOfGenerations))
+        {
+            antColony.solve();
+
+            Arrays.sort(antColony.getAnts(),Collections.reverseOrder());
+
+            int fitness =  antColony.getAnts()[0].getValueOfsack();
+
+            if(fitness>bestfitness)
+                bestfitness=fitness;
+
+        }
+
+        System.out.println(" ACO algorithm running with "+config+" configuration");
+        System.out.println("The value: "+bestfitness);
+
+
+    }
+
+    public static  void PSO(Swarm swarm,String config)
+    {
+        int i=0;
+        while ((i++ <= Configuration.instance.maximumNumberOfGenerations))
+        {
+            swarm.execute();
+
+
+        }
+
+        System.out.println("PSO algorithm running with "+config+" configuration");
+        System.out.println("The value: "+swarm.getOptimalValue());
+
+    }
+
+    public static void BestAlgo(Population population,SimulatedAnnealing sa,AntColony antColony, Swarm swarm)
+    {
+        int i=0;
+        int bestfitness=0;
+
+        while ((i++ <= Configuration.instance.maximumNumberOfGenerations))
+        {
+            population.evolve();
+
+            swarm.execute();
+
+
+            antColony.solve();
+
+            Arrays.sort(antColony.getAnts(),Collections.reverseOrder());
+
+            int fitness =  antColony.getAnts()[0].getValueOfsack();
+
+            if(fitness>bestfitness)
+                bestfitness=fitness;
+
+        }
+
+
+        Sack bestSack = sa.execute();
+
+        Arrays.sort(population.getPopulation(), Collections.reverseOrder());
+
+        Chromosome bestChromosome = population.getPopulation()[0];
+
+
+        int bestAlgo = Math.max(Math.max(bestfitness,swarm.getOptimalValue()),Math.max(bestChromosome.getFitness(),bestSack.getFitness()));
+
+        if(bestAlgo==bestSack.getFitness())
+        {
+            System.out.println("The best algorithm in terms of best knapsack value(minimum 90%) was: SA with value = "+bestAlgo);
+            System.out.println("---------------------------------------------------------------------------------------------------");
+            System.out.println("GA value(minimum 90%) = "+bestChromosome.getFitness());
+            System.out.println("PSO value(minimum 90%) = "+swarm.getOptimalValue());
+            System.out.println("ACO value(minimum 90%) = "+bestfitness);
+
+
+        }
+        else if(bestAlgo==bestChromosome.getFitness())
+            {
+                System.out.println("The best algorithm in terms of best knapsack value(minimum 90%) was: GA with value = "+bestChromosome.getFitness());
+                System.out.println("---------------------------------------------------------------------------------------------------");
+                System.out.println("SA value(minimum 90%) = "+bestSack.getFitness());
+                System.out.println("PSO value(minimum 90%) = "+swarm.getOptimalValue());
+                System.out.println("ACO value(minimum 90%) = "+bestfitness);
+
+            }
+
+        else if(bestAlgo==swarm.getOptimalValue())
+        {
+            System.out.println("The best algorithm in terms of best knapsack value(minimum 90%) was: PSO with value = "+bestAlgo);
+            System.out.println("---------------------------------------------------------------------------------------------------");
+            System.out.println("SA value(minimum 90%) = "+bestSack.getFitness());
+            System.out.println("GA value(minimum 90%) = "+bestChromosome.getFitness());
+            System.out.println("ACO value(minimum 90%) = "+bestfitness);
+
+        }
+
+        else if(bestAlgo==bestfitness)
+        {
+            System.out.println("The best algorithm in terms of best knapsack value(minimum 90%) was: ACO with value = "+bestAlgo);
+            System.out.println("---------------------------------------------------------------------------------------------------");
+            System.out.println("SA value(minimum 90%) = "+bestSack.getFitness());
+            System.out.println("PSO value(minimum 90%) = "+swarm.getOptimalValue());
+            System.out.println("GA value(minimum 90%) = "+bestChromosome.getFitness());
+
+        }
+
+        else
+            {
+                System.out.println("ERROR");
+            }
+
+
+
+    }
 }
+
+

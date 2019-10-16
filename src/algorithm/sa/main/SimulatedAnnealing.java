@@ -10,24 +10,30 @@ public class SimulatedAnnealing
 
     private ArrayList<KnapsackItem> Knapsack;
     private int Knapsack_capacity;
+    private double intialTemp;
+    private  double finishTemp;
+    private double alpha;
 
-    public SimulatedAnnealing(ArrayList<KnapsackItem> Knapsack,int capacity)
+    public SimulatedAnnealing(ArrayList<KnapsackItem> Knapsack,int capacity,double alpha)
     {
         this.Knapsack= Knapsack;
         this.Knapsack_capacity=capacity;
+        this.intialTemp = Configuration.instance.initialTemperature;
+        this.finishTemp = Configuration.instance.finishTemperature;
+        this.alpha =alpha;
     }
 
 
     public Sack execute()
     {
-        double temperature = Configuration.instance.initialTemperature;
+        double temperature = intialTemp;
 
         Sack currentSolution = Sack.createRandomSack(Knapsack);
         removeuntilUnderCap(currentSolution);
 
         Sack bestSolution = new Sack(currentSolution);
 
-        while (temperature > Configuration.instance.finishTemperature)
+        while (temperature > finishTemp)
         {
             Sack newSolution = new Sack(currentSolution);
 
@@ -44,7 +50,7 @@ public class SimulatedAnnealing
             {
                 bestSolution = new Sack(currentSolution);
             }
-            temperature *= 1 - Configuration.instance.alpha;
+            temperature *= 1 - alpha;
 
 
 

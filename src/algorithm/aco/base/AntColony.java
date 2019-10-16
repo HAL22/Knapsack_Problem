@@ -67,10 +67,12 @@ public class AntColony
         {
             bestfitness=currentbest;
             bestAnt = new Ant(ants[0]);
-            System.out.println(bestfitness);
+           // System.out.println(bestfitness);
         }
 
-        bestAnt.layPheromone(1);
+        //bestAnt.layPheromone(1);
+
+        ants[0].layPheromone(1);
 
 
 
