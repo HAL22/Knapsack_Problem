@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class SimulatedAnnealingRecommender
 {
-    public static  void parameterSearch(double percent, ArrayList<KnapsackItem>Knapsack)
+    public static  void parameterSearch(double percent, ArrayList<KnapsackItem>Knapsack) throws Exception
     {
         double solution = 0.0;
         double bestAlpha = 0.0;
@@ -34,12 +34,7 @@ public class SimulatedAnnealingRecommender
             alpha += Configuration.instance.SA_alphaInc;
         }
 
-        System.out.println(alpha);
-
-
-
-
-
+        StringToDOM(alpha);
 
 
     }
@@ -49,6 +44,49 @@ public class SimulatedAnnealingRecommender
         double value_max = Configuration.instance.bestKnownOptimum * percent;
 
         return solution>=value_max;
+
+    }
+
+    public static void StringToDOM(double alpha) throws  Exception
+    {
+
+        String xml = String.format("<SA_Best_Config>\n" +
+                "\n" +
+                "    <parameter>\n" +
+                "        <name>Alpha/Cooling_rate</name>\n" +
+                "        <value>\n" +
+                "            %f\n" +
+                "        </value>\n" +
+                "\n" +
+                "    </parameter>\n" +
+                "\n" +
+                "    <parameter>\n" +
+                "        <name>Initial Temperature</name>\n" +
+                "        <value>\n" +
+                "            10000\n" +
+                "        </value>\n" +
+                "\n" +
+                "    </parameter>\n" +
+                "\n" +
+                "    <parameter>\n" +
+                "        <name>Finish Temperature</name>\n" +
+                "        <value>\n" +
+                "            1\n" +
+                "        </value>\n" +
+                "\n" +
+                "    </parameter>\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "</SA_Best_Config>",alpha);
+
+
+        java.io.FileWriter fw = new java.io.FileWriter("sa_best.xml");
+
+        fw.write(xml);
+        fw.close();
+
+
 
     }
 

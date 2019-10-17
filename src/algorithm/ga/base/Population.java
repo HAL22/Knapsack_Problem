@@ -71,8 +71,8 @@ public class Population
         {
             if (Configuration.instance.randomGenerator.nextFloat() <= crossoverRatio)
             {
-                Chromosome parent1 = Tournament.selectParent(population);
-                Chromosome parent2 = Tournament.selectParent(population);
+                Chromosome parent1 = RouletteWheel.selectParent(population);
+                Chromosome parent2 = RouletteWheel.selectParent(population);
 
 
 
@@ -86,7 +86,7 @@ public class Population
 
                 if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
                 {
-                    Chromosome c =  new Chromosome(Insertion.doMutation(children[0].getGene().toCharArray()));
+                    Chromosome c =  new Chromosome(Inversion.doMutation(children[0].getGene().toCharArray()));
                     c.setKnapsack(this.Knapsack);
                     c.setFitness();
                     chromosomeArray[(index++)] = c;
@@ -100,7 +100,7 @@ public class Population
 
                     if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
                     {
-                        Chromosome c =  new Chromosome(Insertion.doMutation(children[1].getGene().toCharArray()));
+                        Chromosome c =  new Chromosome(Inversion.doMutation(children[1].getGene().toCharArray()));
                         c.setKnapsack(this.Knapsack);
                         c.setFitness();
                         chromosomeArray[index] = c;
@@ -113,7 +113,7 @@ public class Population
 
             else if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
             {
-                Chromosome c= new Chromosome(Insertion.doMutation(population[index].getGene().toCharArray()));
+                Chromosome c= new Chromosome(Inversion.doMutation(population[index].getGene().toCharArray()));
                 c.setKnapsack(Knapsack);
                 c.setFitness();
                 chromosomeArray[index] = c;
@@ -129,7 +129,7 @@ public class Population
         }
 
 
-      //  Arrays.sort(chromosomeArray,Collections.reverseOrder());
+
         population = chromosomeArray;
 
 

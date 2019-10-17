@@ -58,7 +58,7 @@ public class RouletteWheel
         {
             double prob = sum_prob + (((double)population[i].getFitness())/sum_of_fitness);
             sum_prob = sum_prob + prob;
-            roulette[0]= prob;
+            roulette[i]= prob;
 
         }
 

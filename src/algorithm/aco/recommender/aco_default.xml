@@ -1,0 +1,47 @@
+<ACO_Default>
+
+
+    <parameter>
+        <name>Decay factor</name>
+        <value>
+            0.1
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name>Start Pheromone Value</name>
+        <value>
+            50
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name>Number of ants</name>
+        <value>
+            10
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name>Beta</name>
+        <value>
+            1
+
+        </value>
+    </parameter>
+
+    <parameter>
+        <name>Theta</name>
+        <value>
+            1
+
+        </value>
+    </parameter>
+
+
+
+
+</ACO_Default>

@@ -25,8 +25,8 @@ public enum Configuration
 
 
     //Genetic algorithm
-    double crossoverRatio = 0.1;
-    double elitismRatio = 0.1;
+    double crossoverRatio = 0.2;
+    double elitismRatio = 0.2;
     double mutationRatio = .5555;
     public int select_K_Chromosomes = 40;
 

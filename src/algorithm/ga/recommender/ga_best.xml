@@ -1,0 +1,47 @@
+<GA_Best_Config>
+
+    <parameter>
+
+        <name>Two-point crossover</name>
+
+        <name>
+            Crossover ratio
+        </name>
+
+        <value>0.1</value>
+
+    </parameter>
+
+    <parameter>
+
+        <name>Roulette Wheel Selection</name>
+
+    </parameter>
+
+
+    <parameter>
+
+        <name>BitFlip mutation</name>
+
+        <name>
+            Mutation ratio
+        </name>
+
+        <value>0.5555</value>
+
+    </parameter>
+
+
+    <parameter>
+        <name> Elitism ratio</name>
+        <value>
+
+           0.1
+
+        </value>
+    </parameter>
+
+
+
+
+</GA_Best_Config>

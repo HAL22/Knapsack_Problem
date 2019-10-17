@@ -145,26 +145,8 @@ public class Application {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
 
     public static void GA(Population population,String config)
     {
@@ -173,9 +155,10 @@ public class Application {
         while ((i++ <= Configuration.instance.maximumNumberOfGenerations))
         {
             population.evolve();
+            Arrays.sort(population.getPopulation(),Collections.reverseOrder());
         }
 
-        Arrays.sort(population.getPopulation(), Collections.reverseOrder());
+        //Arrays.sort(population.getPopulation(), Collections.reverseOrder());
 
         Chromosome bestChromosome = population.getPopulation()[0];
 
