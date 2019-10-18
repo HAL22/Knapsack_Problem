@@ -12,17 +12,28 @@ public class Particle
     private String best_Position;
     private double[] velocity;
     private Swarm swarm;
+    private double VMAX;
+    private  double VMIN;
+    private double w;
+    private double socialFactor;
+    private double cogFactor;
 
 
-    public Particle(ArrayList<KnapsackItem> Knapsack,Swarm s)
+
+
+    public Particle(ArrayList<KnapsackItem> Knapsack,Swarm s,double VMAX,double VMIN,double w,double socialFactor,double cogFactor)
     {
         this.swarm = s;
 
         this.Knapsack = Knapsack;
 
+        this.VMAX = VMAX;
+        this.VMIN = VMIN;
+        this.w = w;
+        this.socialFactor = socialFactor;
+        this.cogFactor = cogFactor;
+
         generateRandomPosAndVec();
-
-
 
 
     }
@@ -36,7 +47,7 @@ public class Particle
 
         for(int i=0;i<velocity.length;i++)
         {
-            velocity[i] = Configuration.instance.VMIN + Configuration.instance.randomGenerator.nextDouble() * Configuration.instance.VMAX;
+            velocity[i] = this.VMIN+ Configuration.instance.randomGenerator.nextDouble() * this.VMAX;
 
             if(Configuration.instance.randomGenerator.nextDouble()<sigmoid_function(velocity[i]))
             {
@@ -83,16 +94,16 @@ public class Particle
 
             //velocity[i] = velocity[i] + ((Configuration.instance.cognitiveFactor * r1) * (ObjectiveValue(this.best_Position,Knapsack)-ObjectiveValue(this.Position,Knapsack))) +( (Configuration.instance.socialFactor * r2)* (ObjectiveValue(this.swarm.getBest_global_Position(),Knapsack)-ObjectiveValue(this.Position,Knapsack)));
 
-            velocity[i] = Configuration.instance.w * velocity[i] + Configuration.instance.cognitiveFactor * r1 * (convertCharToInt(this.best_Position.charAt(i)) - convertCharToInt(this.Position.charAt(i))) + Configuration.instance.socialFactor * r2 * (convertCharToInt(this.swarm.getBest_global_Position().charAt(i)) - convertCharToInt(this.Position.charAt(i)));
+            velocity[i] = this.w * velocity[i] + this.cogFactor * r1 * (convertCharToInt(this.best_Position.charAt(i)) - convertCharToInt(this.Position.charAt(i))) + this.socialFactor * r2 * (convertCharToInt(this.swarm.getBest_global_Position().charAt(i)) - convertCharToInt(this.Position.charAt(i)));
 
-            if(velocity[i]> Configuration.instance.VMAX)
+            if(velocity[i]> this.VMAX)
             {
-                velocity[i] = Configuration.instance.VMAX;
+                velocity[i] = this.VMAX;
             }
 
-            else if(velocity[i] < Configuration.instance.VMIN)
+            else if(velocity[i] < this.VMIN)
             {
-                velocity[i] = Configuration.instance.VMIN;
+                velocity[i] = this.VMIN;
             }
         }
 

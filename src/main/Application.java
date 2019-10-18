@@ -7,6 +7,7 @@ import algorithm.ga.base.Population;
 import algorithm.ga.evolution.crossover.OnePoint;
 import algorithm.ga.evolution.crossover.TwoPoint;
 import algorithm.pso.base.Swarm;
+import algorithm.pso.recommender.PsoRecommender;
 import algorithm.sa.main.Sack;
 import algorithm.sa.main.SimulatedAnnealing;
 import algorithm.sa.recommender.SimulatedAnnealingRecommender;
@@ -45,7 +46,7 @@ public class Application {
 
         Population population = new Population(Knapsack.size(),Configuration.instance.crossoverRatio,Configuration.instance.elitismRatio,Configuration.instance.mutationRatio,Knapsack);
         AntColony antColony =  new AntColony(Knapsack);
-        Swarm swarm = new Swarm(Knapsack);
+        Swarm swarm = new Swarm(Knapsack,Configuration.instance.VMAX,Configuration.instance.VMIN,Configuration.instance.w,Configuration.instance.socialFactor,Configuration.instance.cognitiveFactor);
         SimulatedAnnealing sa = new SimulatedAnnealing(Knapsack,Configuration.instance.maximumCapacity,Configuration.instance.alpha);
 
 
@@ -84,6 +85,7 @@ public class Application {
                 }
                 else if(args[1].equals("-search_best_configuration"))
                 {
+                    SimulatedAnnealingRecommender.parameterSearch(0.80,Knapsack);
 
                 }
 
@@ -126,6 +128,7 @@ public class Application {
                 }
                 else if(args[1].equals("-search_best_configuration"))
                 {
+                    PsoRecommender.parameterSearch(0.80,Knapsack);
 
                 }
 
@@ -158,7 +161,6 @@ public class Application {
             Arrays.sort(population.getPopulation(),Collections.reverseOrder());
         }
 
-        //Arrays.sort(population.getPopulation(), Collections.reverseOrder());
 
         Chromosome bestChromosome = population.getPopulation()[0];
 
@@ -231,6 +233,8 @@ public class Application {
         {
             population.evolve();
 
+            Arrays.sort(population.getPopulation(), Collections.reverseOrder());
+
             swarm.execute();
 
 
@@ -248,8 +252,8 @@ public class Application {
 
         Sack bestSack = sa.execute();
 
-        Arrays.sort(population.getPopulation(), Collections.reverseOrder());
 
+        Arrays.sort(population.getPopulation(), Collections.reverseOrder());
         Chromosome bestChromosome = population.getPopulation()[0];
 
 

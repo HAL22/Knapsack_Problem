@@ -11,16 +11,31 @@ public class Swarm
     private String best_global_Position=null;
     private Particle[] particles;
 
+    private double VMAX;
+    private  double VMIN;
+    private double w;
+    private double socialFactor;
+    private double cogFactor;
 
-    public Swarm(ArrayList<KnapsackItem> Knapsack)
+
+
+
+
+    public Swarm(ArrayList<KnapsackItem> Knapsack,double VMAX,double VMIN, double w,double socialFactor,double cogFactor)
     {
         this.Knapsack = Knapsack;
+
+        this.VMAX = VMAX;
+        this.VMIN = VMIN;
+        this.w = w;
+        this.socialFactor = socialFactor;
+        this.cogFactor = cogFactor;
 
         particles = new Particle[Configuration.instance.numberOfParticles];
 
         for(int i=0;i<particles.length;i++)
         {
-            particles[i] =  new Particle(this.Knapsack,this);
+            particles[i] =  new Particle(this.Knapsack,this,this.VMAX,this.VMIN,this.w,this.socialFactor,this.cogFactor);
             update_best_Position(particles[i].getPosition());
         }
 
