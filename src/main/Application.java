@@ -66,6 +66,7 @@ public class Application {
                 }
                 else if(args[1].equals("-search_best_configuration"))
                     {
+                        System.out.println("I did not to genetic recommender ");
 
                     }
 
@@ -86,6 +87,9 @@ public class Application {
                 }
                 else if(args[1].equals("-search_best_configuration"))
                 {
+
+                    System.out.println("Searching the best configuration for SA");
+
                     SimulatedAnnealingRecommender.parameterSearch(0.80,Knapsack);
 
                 }
@@ -108,6 +112,10 @@ public class Application {
                 }
                 else if(args[1].equals("-search_best_configuration"))
                 {
+
+
+                    System.out.println("Searching the best configuration for ACO");
+
                     AcoRecommender.parameterSearch(0.80,Knapsack);
 
                 }
@@ -130,6 +138,10 @@ public class Application {
                 }
                 else if(args[1].equals("-search_best_configuration"))
                 {
+
+
+                    System.out.println("Searching the best configuration for PSO");
+
                     PsoRecommender.parameterSearch(0.80,Knapsack);
 
                 }
