@@ -77,7 +77,7 @@ public class Population
 
 
 
-                Chromosome[] children = TwoPoint.doCrossover(parent1,parent2);
+                Chromosome[] children = OnePoint.doCrossover(parent1,parent2);
                 children[0].setKnapsack(this.Knapsack);
                 children[0].setFitness();
                 children[1].setKnapsack(this.Knapsack);
@@ -86,7 +86,7 @@ public class Population
 
                 if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
                 {
-                    Chromosome c =  new Chromosome(Inversion.doMutation(children[0].getGene().toCharArray()));
+                    Chromosome c =  new Chromosome(BitFlip.doMutation(children[0].getGene().toCharArray()));
                     c.setKnapsack(this.Knapsack);
                     c.setFitness();
                     chromosomeArray[(index++)] = c;
@@ -100,7 +100,7 @@ public class Population
 
                     if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
                     {
-                        Chromosome c =  new Chromosome(Inversion.doMutation(children[1].getGene().toCharArray()));
+                        Chromosome c =  new Chromosome(BitFlip.doMutation(children[1].getGene().toCharArray()));
                         c.setKnapsack(this.Knapsack);
                         c.setFitness();
                         chromosomeArray[index] = c;
@@ -113,7 +113,7 @@ public class Population
 
             else if (Configuration.instance.randomGenerator.nextFloat() <= mutationRatio)
             {
-                Chromosome c= new Chromosome(Inversion.doMutation(population[index].getGene().toCharArray()));
+                Chromosome c= new Chromosome(BitFlip.doMutation(population[index].getGene().toCharArray()));
                 c.setKnapsack(Knapsack);
                 c.setFitness();
                 chromosomeArray[index] = c;

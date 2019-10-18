@@ -2,6 +2,7 @@ package main;
 
 import algorithm.aco.base.Ant;
 import algorithm.aco.base.AntColony;
+import algorithm.aco.recommender.AcoRecommender;
 import algorithm.ga.base.Chromosome;
 import algorithm.ga.base.Population;
 import algorithm.ga.evolution.crossover.OnePoint;
@@ -45,7 +46,7 @@ public class Application {
 
 
         Population population = new Population(Knapsack.size(),Configuration.instance.crossoverRatio,Configuration.instance.elitismRatio,Configuration.instance.mutationRatio,Knapsack);
-        AntColony antColony =  new AntColony(Knapsack);
+        AntColony antColony =  new AntColony(Knapsack,Configuration.instance.startPheromoneValue,Configuration.instance.numberOfAnts,Configuration.instance.decayFactor);
         Swarm swarm = new Swarm(Knapsack,Configuration.instance.VMAX,Configuration.instance.VMIN,Configuration.instance.w,Configuration.instance.socialFactor,Configuration.instance.cognitiveFactor);
         SimulatedAnnealing sa = new SimulatedAnnealing(Knapsack,Configuration.instance.maximumCapacity,Configuration.instance.alpha);
 
@@ -107,6 +108,7 @@ public class Application {
                 }
                 else if(args[1].equals("-search_best_configuration"))
                 {
+                    AcoRecommender.parameterSearch(0.80,Knapsack);
 
                 }
 
@@ -160,6 +162,8 @@ public class Application {
             population.evolve();
             Arrays.sort(population.getPopulation(),Collections.reverseOrder());
         }
+
+        Arrays.sort(population.getPopulation(),Collections.reverseOrder());
 
 
         Chromosome bestChromosome = population.getPopulation()[0];

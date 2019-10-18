@@ -16,20 +16,33 @@ public class AntColony
     private Ant bestAnt;
     private int bestfitness;
 
-    public AntColony(ArrayList<KnapsackItem>Knapsack)
+    private double startPheromoneValue;
+    private int numberOfAnts;
+    private double decayFactor;
+
+
+    public AntColony(ArrayList<KnapsackItem>Knapsack, double startPheromoneValue,int numberOfAnts,double decayFactor)
     {
         this.Knapsack=Knapsack;
         this.KnapsackSize = Knapsack.size();
+
+
+        this.startPheromoneValue = startPheromoneValue;
+        this.numberOfAnts = numberOfAnts;
+        this.decayFactor = decayFactor;
+
+
+
         bestAnt = null;
         bestfitness=0;
 
         pheromoneVector = new double[KnapsackSize];
         for(int i=0;i<pheromoneVector.length;i++)
         {
-            pheromoneVector[i] = Configuration.instance.startPheromoneValue;
+            pheromoneVector[i] = this.startPheromoneValue;
         }
 
-        ants = new Ant[Configuration.instance.numberOfAnts];
+        ants = new Ant[this.numberOfAnts];
 
         for(int i=0;i<ants.length;i++)
         {
@@ -41,7 +54,7 @@ public class AntColony
     public void decayPheromone()
     {
         for(int i=0;i<pheromoneVector.length;i++)
-            pheromoneVector[i] = Configuration.instance.decayFactor*pheromoneVector[i];
+            pheromoneVector[i] = this.decayFactor*pheromoneVector[i];
 
     }
 

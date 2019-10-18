@@ -1,4 +1,4 @@
-<PSO_Best_Config>
+<PSO_Default_Config>
 
     <parameter>
         <name>Velocity Max</name>
@@ -53,4 +53,4 @@
     </parameter>
 
 
-</PSO_Best_Config>
+</PSO_Default_Config>

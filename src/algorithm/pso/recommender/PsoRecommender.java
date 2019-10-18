@@ -11,11 +11,11 @@ public class PsoRecommender
     public static  void parameterSearch(double percent, ArrayList<KnapsackItem> Knapsack) throws Exception
     {
 
-        double bestVMAX=0.0;
-        double bestVMIN =0.0;
-        double bestW=0.0;
-        double bestSocialfactor =0.0;
-        double bestcogfactor = 0.0;
+        double bestVMAX=1.0;
+        double bestVMIN =-1.0;
+        double bestW=0.1;
+        double bestSocialfactor =0.1;
+        double bestcogfactor = 0.1;
 
 
 
@@ -34,9 +34,9 @@ public class PsoRecommender
 
             for(double j=w;j<1.2;j=j+0.1)
             {
-                for(double k=socialfactor;k<2;k=k+0.1)
+                for(double k=socialfactor;k<2;k=k+0.01)
                 {
-                    for(double v=cogfactor;v<2;v=v+0.1)
+                    for(double v=cogfactor;v<2;v=v+0.01)
                     {
 
 
@@ -46,6 +46,8 @@ public class PsoRecommender
                         {
                             swarm.execute();
                         }
+
+
 
                         if(meetsPercentage(percent,swarm.getOptimalValue()))
                         {
@@ -177,7 +179,11 @@ public class PsoRecommender
 
 
 
-        java.io.FileWriter fw = new java.io.FileWriter("pso_best.xml");
+
+        System.out.println("PSO Best configuration written");
+
+
+        java.io.FileWriter fw = new java.io.FileWriter("src/algorithm/pso/recommender/pso_best.xml");
 
         fw.write(xml);
         fw.close();
@@ -189,6 +195,8 @@ public class PsoRecommender
     public static boolean meetsPercentage(double percent, double solution)
     {
         double value_max = Configuration.instance.bestKnownOptimum * percent;
+
+
 
         return solution>=value_max;
 

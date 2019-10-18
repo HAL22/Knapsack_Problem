@@ -1,10 +1,9 @@
-
 <SA_Best_Config>
 
     <parameter>
         <name>Alpha/Cooling_rate</name>
         <value>
-            0.0003
+            0.000300
         </value>
 
     </parameter>

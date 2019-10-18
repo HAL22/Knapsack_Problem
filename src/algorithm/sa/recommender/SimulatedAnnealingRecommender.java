@@ -31,7 +31,10 @@ public class SimulatedAnnealingRecommender
             }
 
 
-            alpha += Configuration.instance.SA_alphaInc;
+            alpha = alpha+ Configuration.instance.SA_alphaInc;
+
+
+
         }
 
         StringToDOM(alpha);
@@ -49,6 +52,9 @@ public class SimulatedAnnealingRecommender
 
     public static void StringToDOM(double alpha) throws  Exception
     {
+
+
+
 
         String xml = String.format("<SA_Best_Config>\n" +
                 "\n" +
@@ -81,7 +87,11 @@ public class SimulatedAnnealingRecommender
                 "</SA_Best_Config>",alpha);
 
 
-        java.io.FileWriter fw = new java.io.FileWriter("sa_best.xml");
+
+        System.out.println("SA Best configuration written");
+
+
+        java.io.FileWriter fw = new java.io.FileWriter("src/algorithm/sa/recommender/sa_best.xml");
 
         fw.write(xml);
         fw.close();
